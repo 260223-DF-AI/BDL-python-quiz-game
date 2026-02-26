@@ -4,6 +4,7 @@
 from subprocess import call # clear terminal command
 import os # check os for correct terminal command
 from datetime import datetime
+import random
 
 """
 Python Quiz Game
@@ -153,7 +154,7 @@ def get_user_answer():
     start = datetime.now()
     while True:
         answer = input("Select your answer: ").upper()
-        if (datetime.now() - start).seconds > 1:
+        if (datetime.now() - start).seconds > 60:
             print("Time expired before you could answer.")
             return None
         if answer in ["A", "B", "C", "D"]:
@@ -233,6 +234,8 @@ def run_quiz(questions):
     
     # TODO: Implement the game loop
     # Hint: Use a for loop with enumerate
+    call('clear' if os.name == "posix" else 'cls', shell=True)
+    random.shuffle(questions)
     for i, x in enumerate(questions):
         call('clear' if os.name == "posix" else 'cls', shell=True)
         display_question(x, i + 1, total)
@@ -287,7 +290,7 @@ def calculate_grade(score, total):
         return "F"
 
 
-def display_results(score, total):
+def display_results(score, total, high_score):
     """
     Display final results with grade and encouragement.
     
@@ -305,16 +308,20 @@ def display_results(score, total):
     print("=" * 44)
     print(f"Score: {score} / {total} ({int((score/total) * 100)}%)")
     print(f"Grade: {calculate_grade(score, total)}")
+    if score > high_score:
+        high_score = score
+        print(f"WOW! New high score! {high_score} / {total} ({int((high_score / total) * 100)}%)")
     print()
     print("Great job! Keep practicing!")
     print("=" * 44)
+    return high_score
 
 
 # =============================================================================
 # Main Program
 # =============================================================================
 
-def main():
+def main(high_score = 0):
     """Main entry point for the quiz game."""
     # Create question bank
     questions = create_question_bank()
@@ -323,16 +330,18 @@ def main():
     score, total = run_quiz(questions)
     
     # Display results
-    display_results(score, total)
+    high_score = display_results(score, total, high_score)
     
     # Ask to play again
-    play_again = input("\nWould you like to play again? (yes/no): ")
-    if play_again.lower() in ["yes", "y"]:
-        call('clear' if os.name == "posix" else 'cls', shell=True)
-        main()
-    else:
-        print("\nThanks for playing! Goodbye!")
+    while True:
+        play_again = input("\nWould you like to play again? ([y]es/[n]o): ")
 
+        if play_again.lower() in ["yes", "y"]:
+            call('clear' if os.name == "posix" else 'cls', shell=True)
+            main(high_score)
+        elif play_again.lower() in ["no", "n"]:
+            print("\nThanks for playing! Goodbye!")
+            break
 
 if __name__ == "__main__":
     main()
