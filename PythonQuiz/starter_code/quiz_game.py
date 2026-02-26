@@ -154,7 +154,7 @@ def get_user_answer():
     start = datetime.now()
     while True:
         answer = input("Select your answer: ").upper()
-        if (datetime.now() - start).seconds > 60:
+        if (datetime.now() - start).seconds > 60: # if time limit has passed by the time user enters answer, ignore answer and return none
             print("Time expired before you could answer.")
             return None
         if answer in ["A", "B", "C", "D"]:
@@ -190,7 +190,7 @@ def display_feedback(question, user_answer, is_correct):
     """
     # TODO: Display appropriate feedback based on is_correct
     if is_correct:
-        print("\033[32m" + "Correct!" + "\033[0m")
+        print("\033[32m" + "Correct!" + "\033[0m") #coloring text in terminal
     else:
         print("Incorrect. The answer was " + question["answer"])
     print(question["explanation"])
@@ -234,7 +234,7 @@ def run_quiz(questions):
     
     # TODO: Implement the game loop
     # Hint: Use a for loop with enumerate
-    call('clear' if os.name == "posix" else 'cls', shell=True)
+    call('clear' if os.name == "posix" else 'cls', shell=True) #clearing terminal, have to do this twice for first time
     random.shuffle(questions)
     for i, x in enumerate(questions):
         call('clear' if os.name == "posix" else 'cls', shell=True)
@@ -247,7 +247,7 @@ def run_quiz(questions):
         else:
             check = False
         display_feedback(x, answer, check)
-        input("Hit Enter to continue...")
+        input("Hit Enter to continue...") #wait for user to get the chance to read the explanation before moving on and clearing the screen
     
     call('clear' if os.name == "posix" else 'cls', shell=True)
     
@@ -314,14 +314,14 @@ def display_results(score, total, high_score):
     print()
     print("Great job! Keep practicing!")
     print("=" * 44)
-    return high_score
+    return high_score #either returns old high score or the updated one to be stored between games (not sessions)
 
 
 # =============================================================================
 # Main Program
 # =============================================================================
 
-def main(high_score = 0):
+def main(high_score = 0): #added default high score to be passed in on first run through
     """Main entry point for the quiz game."""
     # Create question bank
     questions = create_question_bank()
@@ -338,7 +338,7 @@ def main(high_score = 0):
 
         if play_again.lower() in ["yes", "y"]:
             call('clear' if os.name == "posix" else 'cls', shell=True)
-            main(high_score)
+            main(high_score) #uses new high score to compare next score
         elif play_again.lower() in ["no", "n"]:
             print("\nThanks for playing! Goodbye!")
             break
