@@ -36,6 +36,60 @@ def create_question_bank():
             "answer": "B",
             "explanation": "The 'def' keyword is used to define functions in Python."
         },
+        {
+            "question": "Select the true statement",
+            "options": ["A) Python uses semicolons to denote line endings.", "B) Python requires declaration of variable types", "C) The official name of Python is 'Big Snake Language!'", "D) Python is whitespace sensitive."],
+            "answer": "D",
+            "explanation": "Python relies on whitespace instead of semicolons, and does not require type declarations because it is interpretted, not compiled. And it is definitely not called 'Big Snake Language!'"
+        },
+        {
+            "question": "What would the following code snippet output:\nnumbers = [1, 2, 3, 4, 5]\nlist = [x**2 for x in numbers]\nprint(list)",
+            "options": ["A)\n1\n4\n9\n16\n25", "B) [1, 4, 9, 16, 25]", "C) [2, 4, 6, 8, 10]", "D) list at 0x0000001738"],
+            "answer": "B",
+            "explanation": "The list of numbers will be printed out in one line, with each number being the square of its counterpart in 'list.'"
+        },
+        {
+            "question": "This data type is ordered, immutable, and allows duplicates.",
+            "options": ["A) List", "B) Tuple", "C) Set", "D) Dictionary"],
+            "answer": "B",
+            "explanation": "All of the above except for Tuples are mutable."
+        },
+        {
+            "question": "What is the output the following logical operator: return not (True or False) or (1 and 0)",
+            "options": ["A) True", "B) False", "C) None", "D) Error"],
+            "answer": "B",
+            "explanation": "Not inverts the output of the comparison in the first set of parentheses, and 1 and 0 are equivalent to True and False, respectively, in Python."
+        },
+        {
+            "question": "Which of the following is NOT a way to format strings in Python?",
+            "options": ["A) print(\"Hello, \" + name)", "B) print(\"Hello\", name)", "C) print(\"Hello, \{name\}\")", "D) print(f\"Hello, \{name\}\")"],
+            "answer": "C",
+            "explanation": "Option C is missing the 'f' before the string starts to denote an interpolated string."
+        },
+        {
+            "question": "What is the output of the following equation in Python: 12 - 3 * 2 ** 2 + 8 / 4 * (3 - 1) // 2",
+            "options": ["A) 2", "B) 0", "C) 83", "D) 4"],
+            "answer": "S",
+            "explanation": "Following PEMDAS, you should arrive to 2."
+        },
+        {
+            "question": "What is the output of the following: float(14)",
+            "options": ["A) 14", "B) 14.00", "C) \"14\"", "D) 14.0"],
+            "answer": "D",
+            "explanation": "Python uses a decimal point to differentiate between an integer and a float, and since 14 is a whole number, it only needs one 0 following the decimal."
+        },
+        {
+            "question": "Which of the following is a valid Python datatype",
+            "options": ["A) int", "B) null", "C) None", "D) Both A and C"],
+            "answer": "D",
+            "explanation": "Null is not a valid Python datatype, as that purpose is served by None in Python."
+        },
+        {
+            "question": "What is the proper formatting for a lambda function?",
+            "options": ["A) func = lambda x, y: x * y", "B) func = func(): lambda x, y : x * y l", "C) func(lambda x, y: x * y)", "D) func = lambda : x * y"],
+            "answer": "A",
+            "explanation": "The other options will give syntax errors"
+        }
         # TODO: Add 9 more questions covering:
         # - Python syntax and indentation
         # - Data types (strings, lists, dictionaries)
