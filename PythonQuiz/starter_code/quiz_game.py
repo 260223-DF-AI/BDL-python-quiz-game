@@ -1,6 +1,10 @@
 # quiz_game.py - Python Quiz Game
 # Starter code for e004-exercise-control-flow (Collaborative Project)
 
+from subprocess import call # clear terminal command
+import os # check os for correct terminal command
+from datetime import datetime
+
 """
 Python Quiz Game
 ----------------
@@ -146,8 +150,12 @@ def get_user_answer():
         A valid answer in uppercase (A, B, C, or D)
     """
     # TODO: Implement input validation loop
+    start = datetime.now()
     while True:
         answer = input("Select your answer: ").upper()
+        if (datetime.now() - start).seconds > 1:
+            print("Time expired before you could answer.")
+            return None
         if answer in ["A", "B", "C", "D"]:
             return answer
 
@@ -220,17 +228,25 @@ def run_quiz(questions):
     print("=" * 50)
     print(f"\nYou will answer {total} questions.")
     print("Enter A, B, C, or D for each question.\n")
+    print("You will have 60 seconds per question.")
     input("Press Enter to start...")
     
     # TODO: Implement the game loop
     # Hint: Use a for loop with enumerate
     for i, x in enumerate(questions):
+        call('clear' if os.name == "posix" else 'cls', shell=True)
         display_question(x, i + 1, total)
         answer = get_user_answer()
-        check = check_answer(x, answer)
-        if check:
-            score += 1
+        if answer:
+            check = check_answer(x, answer)
+            if check:
+                score += 1
+        else:
+            check = False
         display_feedback(x, answer, check)
+        input("Hit Enter to continue...")
+    
+    call('clear' if os.name == "posix" else 'cls', shell=True)
     
     return score, total
 
@@ -312,6 +328,7 @@ def main():
     # Ask to play again
     play_again = input("\nWould you like to play again? (yes/no): ")
     if play_again.lower() in ["yes", "y"]:
+        call('clear' if os.name == "posix" else 'cls', shell=True)
         main()
     else:
         print("\nThanks for playing! Goodbye!")
