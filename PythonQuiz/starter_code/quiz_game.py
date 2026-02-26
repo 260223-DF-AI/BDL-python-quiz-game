@@ -62,14 +62,14 @@ def create_question_bank():
         },
         {
             "question": "Which of the following is NOT a way to format strings in Python?",
-            "options": ["A) print(\"Hello, \" + name)", "B) print(\"Hello\", name)", "C) print(\"Hello, \{name\}\")", "D) print(f\"Hello, \{name\}\")"],
+            "options": ["A) print(\"Hello, \" + name)", "B) print(\"Hello\", name)", "C) print(\"Hello, {name}\")", "D) print(f\"Hello, {name}\")"],
             "answer": "C",
             "explanation": "Option C is missing the 'f' before the string starts to denote an interpolated string."
         },
         {
             "question": "What is the output of the following equation in Python: 12 - 3 * 2 ** 2 + 8 / 4 * (3 - 1) // 2",
             "options": ["A) 2", "B) 0", "C) 83", "D) 4"],
-            "answer": "S",
+            "answer": "A",
             "explanation": "Following PEMDAS, you should arrive to 2."
         },
         {
@@ -183,7 +183,7 @@ def display_feedback(question, user_answer, is_correct):
     if is_correct:
         print("\033[32m" + "Correct!" + "\033[0m")
     else:
-        print("Incorrect. The answer was" + question["answer"])
+        print("Incorrect. The answer was " + question["answer"])
     print(question["explanation"])
 
 
@@ -224,6 +224,13 @@ def run_quiz(questions):
     
     # TODO: Implement the game loop
     # Hint: Use a for loop with enumerate
+    for i, x in enumerate(questions):
+        display_question(x, i + 1, total)
+        answer = get_user_answer()
+        check = check_answer(x, answer)
+        if check:
+            score += 1
+        display_feedback(x, answer, check)
     
     return score, total
 
@@ -251,7 +258,17 @@ def calculate_grade(score, total):
         Letter grade as string
     """
     # TODO: Calculate percentage and return grade
-    pass
+    grade = (score / total) * 100
+    if grade >= 90:
+        return "A"
+    elif grade >= 80:
+        return "B"
+    elif grade >= 70:
+        return "C"
+    elif grade >= 60:
+        return "D"
+    else:
+        return "F"
 
 
 def display_results(score, total):
@@ -267,7 +284,14 @@ def display_results(score, total):
     # TODO: Calculate percentage and grade
     # TODO: Display formatted results
     # TODO: Add encouragement message
-    pass
+    print("=" * 44)
+    print("\tQUIZ COMPLETE!")
+    print("=" * 44)
+    print(f"Score: {score} / {total} ({int((score/total) * 100)}%)")
+    print(f"Grade: {calculate_grade(score, total)}")
+    print()
+    print("Great job! Keep practicing!")
+    print("=" * 44)
 
 
 # =============================================================================
