@@ -3,8 +3,8 @@
 
 from subprocess import call # clear terminal command
 import os # check os for correct terminal command
-from datetime import datetime
-import random
+from datetime import datetime # for question timer
+import random # for question shuffling
 
 """
 Python Quiz Game
@@ -157,7 +157,7 @@ def get_user_answer():
         if (datetime.now() - start).seconds > 60: # if time limit has passed by the time user enters answer, ignore answer and return none
             print("Time expired before you could answer.")
             return None
-        if answer in ["A", "B", "C", "D"]:
+        if answer in ["A", "B", "C", "D"]: # only accept valid answer (after being formatted with upper())
             return answer
 
 
@@ -240,12 +240,12 @@ def run_quiz(questions):
         call('clear' if os.name == "posix" else 'cls', shell=True)
         display_question(x, i + 1, total)
         answer = get_user_answer()
-        if answer:
+        if answer: # will not execute if time limit passed, as None is returned
             check = check_answer(x, answer)
-            if check:
+            if check: #only executes when check == "True"
                 score += 1
         else:
-            check = False
+            check = False #backup to make sure check is passed as false if time limit was passed (could also declare and define as False before "if answer" and omit else statement)
         display_feedback(x, answer, check)
         input("Hit Enter to continue...") #wait for user to get the chance to read the explanation before moving on and clearing the screen
     
@@ -306,11 +306,11 @@ def display_results(score, total, high_score):
     print("=" * 44)
     print("\tQUIZ COMPLETE!")
     print("=" * 44)
-    print(f"Score: {score} / {total} ({int((score/total) * 100)}%)")
+    print(f"Score: {score} / {total} ({int((score/total) * 100)}%)") # only 10 questions so should never be a float, change in future to round floats to 2 decimals 
     print(f"Grade: {calculate_grade(score, total)}")
     if score > high_score:
         high_score = score
-        print(f"WOW! New high score! {high_score} / {total} ({int((high_score / total) * 100)}%)")
+        print(f"WOW! New high score! {high_score} / {total} ({int((high_score / total) * 100)}%)") # same as score report: change to floats
     print()
     print("Great job! Keep practicing!")
     print("=" * 44)
